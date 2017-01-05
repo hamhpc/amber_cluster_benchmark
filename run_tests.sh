@@ -54,6 +54,9 @@ do
     #
     mv mdinfo mdinfo.$NPROC
     mv logfile logfile.$NPROC
+    NS_PER_DAY=`cat mdinfo.$NPROC | grep ns/day | tail -1 | awk '{print $4}'`
+    echo "$NPROC,$NS_PER_DAY" >> results.csv
+    
   done   
 done
    
