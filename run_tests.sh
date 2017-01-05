@@ -7,8 +7,8 @@
 # Declare some variables
 #
 QUEUE_NAME="una"
-SEND_JOB_EMAIL="Y"
-DEBUGGING="Y"
+SEND_JOB_EMAIL="N"
+DEBUGGING="N"
 JOB_EMAIL="-m abe -M user@domain.com"
 PBS_QSTAT_CMD=`qstat`
 NUMBER_NODES=40
