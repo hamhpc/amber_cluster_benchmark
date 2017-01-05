@@ -52,12 +52,16 @@ module load apps/amber14
     echo "#!/bin/bash -i" > job-$NPROC.run
     echo 'cd $PBS_O_WORKDIR' >> job-$NPROC.run
     echo 'export PATH=$PBS_O_PATH' >> job-$NPROC.run
-    echo "module load $MPI_MODULE" >> job-$NPROC.run
-    echo "module load apps/amber14" >> job-$NPROC.run
-    echo "/usr/lib64/mvapich2/bin/mpiexec -np $NPROC $INTERFACE /usr/local/amber14/bin/pmemd.MPI -O -i etc/amber.in -o amber-$NPROC.out -p etc/2e98-hid43-init-ions-wat.prmtop -c etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> job-$NPROC.run
+    echo "source /etc/modulefiles/$MPI_MODULE" >> job-$NPROC.run
+    echo "source /usr/local/global/modulefiles/apps/amber14" >> job-$NPROC.run
+    echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i etc/amber.in -o amber-$NPROC.out -p etc/2e98-hid43-init-ions-wat.prmtop -c etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> job-$NPROC.run
     echo "mv mdinfo mdinfo.$NPROC" >> job-$NPROC.run
     echo "mv logfile logfile.$NPROC" >> job-$NPROC.run
+    #
+    # now submit the job
+    #
     $PBS_QSUB_CMD -N $NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
+
     
   done
    
