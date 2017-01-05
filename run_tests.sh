@@ -34,8 +34,8 @@ if [ $DEBUGGING = "Y" ]; then
   PBS_QSUB_CMD="$PBS_QSUB_CMD -verbose"
 fi
 
-module load $MPI_MODULE
-module load apps/amber14 
+source /etc/modulefiles/$MPI_MODULE
+source /usr/local/global/modulefiles/apps/amber14 
   
   for NPROC in 1 2 4 8 16 32 64 128 192 256
   do
