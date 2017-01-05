@@ -14,7 +14,7 @@ PBS_QSTAT_CMD=`qstat`
 NUMBER_NODES=40
 PROCS_PER_NODE=8
 RUN_DATE=`date "+%h-%d-%Y-%R"`
-RUNS_DIR="${HOME}/amber_cluster_benchmark/$RUN_DATE"
+RUNS_DIR="${HOME}/amber_cluster_benchmark/run_$RUN_DATE"
 INTERFACE="-iface ib0"   # use IB make sure to pick mvapich below. 
 #INTERFACE=""            # blank for just ethernet make sure to use mpich below. 
 #
@@ -44,7 +44,7 @@ mkdir -p $RUNS_DIR
 cd $RUNS_DIR
   for NPROC in 001 002 004 008 016 032 064 128 192 256
   do
-    mkdir $NPROC
+    mkdir -p $NPROC
     NODES=$(($NPROC/$PROCS_PER_NODE))
     if [ "$NODES" -le "1" ];  then 
         NODES=1
@@ -67,6 +67,7 @@ cd $RUNS_DIR
     #
     cd $RUNS_DIR/$NPROC
     $PBS_QSUB_CMD -N $NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
+    cd ..
     
   done
    
