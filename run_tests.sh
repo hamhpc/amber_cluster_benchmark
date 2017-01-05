@@ -20,8 +20,8 @@ INTERFACE="-iface ib0"   # use IB make sure to pick mvapich below.
 # If it's IB then use mvapich if ETH then mpich
 # only use one or the other or the jobs will fail
 #
-#MPI_MODULE="mpi/mvpaich2-x86_64"
-MPI_MODULE="mpi/mpich-x86_64"
+MPI_MODULE="mpi/mvpaich2-x86_64"
+#MPI_MODULE="mpi/mpich-x86_64"
 
 # Send mail when jobs start/stop and abort if enabled
 if [ $SEND_JOB_EMAIL = "Y" ]; then 
