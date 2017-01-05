@@ -45,7 +45,7 @@ cd $RUNS_DIR
 #
 # create results file header
 #
-echo "NPROC,NS_PER_DAY" > results.csv
+echo "NS_PER_DAY,NPROC" > results.csv
 #
 # now loop through the amount of CPU's and run jobs for each one
 #
