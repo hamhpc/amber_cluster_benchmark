@@ -34,8 +34,9 @@ if [ $DEBUGGING = "Y" ]; then
   PBS_QSUB_CMD="$PBS_QSUB_CMD -verbose"
 fi
 
-source /etc/modulefiles/$MPI_MODULE
-source /usr/local/global/modulefiles/apps/amber14 
+echo "module load $MPI_MODULE" > load_modules
+echo "module load apps/amber14" >> load_modules
+source load_modules
   
   for NPROC in 1 2 4 8 16 32 64 128 192 256
   do
@@ -52,8 +53,7 @@ source /usr/local/global/modulefiles/apps/amber14
     echo "#!/bin/bash -i" > job-$NPROC.run
     echo 'cd $PBS_O_WORKDIR' >> job-$NPROC.run
     echo 'export PATH=$PBS_O_PATH' >> job-$NPROC.run
-    echo "source /etc/modulefiles/$MPI_MODULE" >> job-$NPROC.run
-    echo "source /usr/local/global/modulefiles/apps/amber14" >> job-$NPROC.run
+    echo "source load_modules" >> job-$NPROC.run
     echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i etc/amber.in -o amber-$NPROC.out -p etc/2e98-hid43-init-ions-wat.prmtop -c etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> job-$NPROC.run
     echo "mv mdinfo mdinfo.$NPROC" >> job-$NPROC.run
     echo "mv logfile logfile.$NPROC" >> job-$NPROC.run
