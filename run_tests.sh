@@ -15,7 +15,6 @@ NUMBER_NODES=40
 PROCS_PER_NODE=8
 RUN_DATE=`date "+%h-%d-%Y-%R"`
 RUNS_DIR="${HOME}/amber_cluster_benchmark/results_$RUN_DATE"
-NS_PER_DAY=`cat mdinfo | grep ns/day | tail -1 | awk '{print $4}'`
 INTERFACE="-iface ib0"   # use IB make sure to pick mvapich below. 
 #INTERFACE=""            # blank for just ethernet make sure to use mpich below. 
 #
