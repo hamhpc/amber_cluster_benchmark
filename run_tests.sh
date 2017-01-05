@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -i
 #
 # Script to submit amber jobs and record the results in ns/day.
 #
