@@ -6,7 +6,7 @@
 #
 # Declare some variables
 #
-QUEUE_NAME="batch"
+QUEUE_NAME="una"
 SEND_JOB_EMAIL="Y"
 DEBUGGING="Y"
 JOB_EMAIL="-m abe -M user@domain.com"
