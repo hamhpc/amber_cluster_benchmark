@@ -42,9 +42,9 @@ source load_modules
 
 mkdir -p $RUNS_DIR
 cd $RUNS_DIR
-  for NPROC in 001 002 004 008 016 032 064 128 192 256
+  for NPROC in 2 4 8 16 32 64 128 192 256
   do
-    mkdir -p $NPROC
+    mkdir -p proc-$NPROC
     NODES=$(($NPROC/$PROCS_PER_NODE))
     if [ "$NODES" -le "1" ];  then 
         NODES=1
@@ -55,17 +55,15 @@ cd $RUNS_DIR
     # 
     # Run the example code for the amount of processors
     #
-    echo "#!/bin/bash -i" > $NPROC/job-$NPROC.run
-    echo 'cd $PBS_O_WORKDIR' >> $NPROC/job-$NPROC.run
-    echo 'export PATH=$PBS_O_PATH' >> $NPROC/job-$NPROC.run
-    echo "source load_modules" >> $NPROC/job-$NPROC.run
-    echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> $NPROC/job-$NPROC.run
-    #echo "mv mdinfo mdinfo.$NPROC" >> $NPROC/job-$NPROC.run
-    #echo "mv logfile logfile.$NPROC" >> $NPROC/job-$NPROC.run
+    echo "#!/bin/bash -i" > proc-$NPROC/job-$NPROC.run
+    echo 'cd $PBS_O_WORKDIR' >> proc-$NPROC/job-$NPROC.run
+    echo 'export PATH=$PBS_O_PATH' >> proc-$NPROC/job-$NPROC.run
+    echo "source load_modules" >> proc-$NPROC/job-$NPROC.run
+    echo "mpiexec -np proc-$NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> proc-$NPROC/job-$NPROC.run
     #
     # now submit the job
     #
-    cd $RUNS_DIR/$NPROC
+    cd $RUNS_DIR/proc-$NPROC
     $PBS_QSUB_CMD -N $NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
     cd ..
     
