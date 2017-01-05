@@ -14,7 +14,7 @@ PBS_QSTAT_CMD=`qstat`
 NUMBER_NODES=40
 PROCS_PER_NODE=8
 RUN_DATE=`date "+%h-%d-%Y-%R"`
-RUNS_DIR="${HOME}/amber_cluster_benchmark/run_$RUN_DATE"
+RUNS_DIR="${HOME}/amber_cluster_benchmark/results_$RUN_DATE"
 INTERFACE="-iface ib0"   # use IB make sure to pick mvapich below. 
 #INTERFACE=""            # blank for just ethernet make sure to use mpich below. 
 #
