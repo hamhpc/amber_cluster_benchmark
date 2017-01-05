@@ -69,7 +69,7 @@ cd $RUNS_DIR
     # now submit the job
     #
     cd $RUNS_DIR/proc-$NPROC
-    $PBS_QSUB_CMD -N $NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
+    $PBS_QSUB_CMD -N MpiTest-$NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
     cd ..
     
   done
