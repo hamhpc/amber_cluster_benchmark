@@ -7,4 +7,4 @@ Usage:
 
   Step 1:  execute the run_tests.sh script. Be sure to update the script variables for your environment. 
   
-  Step 2: After all the jobs complete execute create_results.sh.
+  Step 2: After all the jobs complete, execute create_results.sh.
