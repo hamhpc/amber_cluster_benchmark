@@ -49,7 +49,8 @@ module load apps/amber14
     # 
     # Run the example code for the amount of processors
     #
-    echo 'cd $PBS_O_WORKDIR' > job-$NPROC.run
+    echo "#!/bin/bash -i" > job-$NPROC.run
+    echo 'cd $PBS_O_WORKDIR' >> job-$NPROC.run
     echo 'export PATH=$PBS_O_PATH' >> job-$NPROC.run
     echo "module load $MPI_MODULE" >> job-$NPROC.run
     echo "module load apps/amber14" >> job-$NPROC.run
