@@ -27,9 +27,9 @@ MPI_MODULE="mpi/mvapich2-x86_64"
 
 # Send mail when jobs start/stop and abort if enabled
 if [ $SEND_JOB_EMAIL = "Y" ]; then 
-  PBS_QSUB_CMD="/usr/local/bin/qsub -j oe -l walltime=1:00:00 -q $QUEUE_NAME $JOB_EMAIL"
+  PBS_QSUB_CMD="/usr/local/bin/qsub -j oe -l walltime=1:30:00 -q $QUEUE_NAME $JOB_EMAIL"
 else
-  PBS_QSUB_CMD="/usr/local/bin/qsub -j oe -l walltime=1:00:00 -q $QUEUE_NAME"
+  PBS_QSUB_CMD="/usr/local/bin/qsub -j oe -l walltime=1:30:00 -q $QUEUE_NAME"
 fi
 # turn on verbose MPI logging
 if [ $DEBUGGING = "Y" ]; then 
