@@ -36,9 +36,9 @@ if [ $DEBUGGING = "Y" ]; then
   PBS_QSUB_CMD="$PBS_QSUB_CMD -verbose"
 fi
 
-echo "module load $MPI_MODULE" > load_modules
-echo "module load apps/amber14" >> load_modules
-source load_modules
+echo "module load $MPI_MODULE" > $RUNS_DIR/load_modules
+echo "module load apps/amber14" >> $RUNS_DIR/load_modules
+source $RUNS_DIR/load_modules
 
 mkdir -p $RUNS_DIR
 cd $RUNS_DIR
@@ -58,7 +58,7 @@ cd $RUNS_DIR
     echo "#!/bin/bash -i" > proc-$NPROC/job-$NPROC.run
     echo 'cd $PBS_O_WORKDIR' >> proc-$NPROC/job-$NPROC.run
     echo 'export PATH=$PBS_O_PATH' >> proc-$NPROC/job-$NPROC.run
-    echo "source ../../load_modules" >> proc-$NPROC/job-$NPROC.run
+    echo "source ../load_modules" >> proc-$NPROC/job-$NPROC.run
     echo "date" >> proc-$NPROC/job-$NPROC.run
     echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> proc-$NPROC/job-$NPROC.run
     echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> proc-$NPROC/job-$NPROC.run
