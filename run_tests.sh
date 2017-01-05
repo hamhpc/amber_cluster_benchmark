@@ -15,6 +15,7 @@ NUMBER_NODES=40
 PROCS_PER_NODE=8
 RUN_DATE=`date "+%h-%d-%Y-%R"`
 RUNS_DIR="${HOME}/amber_cluster_benchmark/results_$RUN_DATE"
+NS_PER_DAY=`cat mdinfo | grep ns/day | tail -1 | awk '{print $4}'`
 INTERFACE="-iface ib0"   # use IB make sure to pick mvapich below. 
 #INTERFACE=""            # blank for just ethernet make sure to use mpich below. 
 #
@@ -60,6 +61,8 @@ cd $RUNS_DIR
     echo 'export PATH=$PBS_O_PATH' >> proc-$NPROC/job-$NPROC.run
     echo "source ../../load_modules" >> proc-$NPROC/job-$NPROC.run
     echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> proc-$NPROC/job-$NPROC.run
+    echo 'NS_PER_DAY=`cat mdinfo | grep ns/day | tail -1 | awk '{print $4}'`' >> proc-$NPROC/job-$NPROC.run
+    echo '$NPROC,$NS_PER_DAY" >> ../../results.csv' >> proc-$NPROC/job-$NPROC.run
     #
     # now submit the job
     #
