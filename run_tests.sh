@@ -36,11 +36,11 @@ if [ $DEBUGGING = "Y" ]; then
   PBS_QSUB_CMD="$PBS_QSUB_CMD -verbose"
 fi
 
+mkdir -p $RUNS_DIR
 echo "module load $MPI_MODULE" > $RUNS_DIR/load_modules
 echo "module load apps/amber14" >> $RUNS_DIR/load_modules
 source $RUNS_DIR/load_modules
 
-mkdir -p $RUNS_DIR
 cd $RUNS_DIR
 #
 # create results file header
