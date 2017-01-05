@@ -13,7 +13,8 @@ JOB_EMAIL="-m abe -M user@domain.com"
 PBS_QSTAT_CMD=`qstat`
 NUMBER_NODES=40
 PROCS_PER_NODE=8
-RUNS_DIR="~/amber_cluster_benchmark/runs-`date "+%h-%d-%Y-%R"`
+RUN_DATE=`date "+%h-%d-%Y-%R"`
+RUNS_DIR="~/amber_cluster_benchmark/$RUN_DATE"
 INTERFACE="-iface ib0"   # use IB make sure to pick mvapich below. 
 #INTERFACE=""            # blank for just ethernet make sure to use mpich below. 
 #
