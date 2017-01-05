@@ -42,6 +42,13 @@ source $RUNS_DIR/load_modules
 
 mkdir -p $RUNS_DIR
 cd $RUNS_DIR
+#
+# create results file header
+#
+echo "NPROC,NS_PER_DAY" > results.csv
+#
+# now loop through the amount of CPU's and run jobs for each one
+#
   for NPROC in 2 4 8 16 32 64 128 192 256
   do
     mkdir -p proc-$NPROC
@@ -53,7 +60,7 @@ cd $RUNS_DIR
 	      PPN=$PROCS_PER_NODE
     fi
     # 
-    # Run the example code for the amount of processors
+    # create the code for this job to submit to the cluster
     #
     echo "#!/bin/bash -i" > proc-$NPROC/job-$NPROC.run
     echo 'cd $PBS_O_WORKDIR' >> proc-$NPROC/job-$NPROC.run
