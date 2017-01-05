@@ -13,6 +13,7 @@ JOB_EMAIL="-m abe -M user@domain.com"
 PBS_QSTAT_CMD=`qstat`
 NUMBER_NODES=40
 PROCS_PER_NODE=8
+RUNS_DIR="~/amber_cluster_benchmark/runs-`date "+%h-%d-%Y-%R"`
 INTERFACE="-iface ib0"   # use IB make sure to pick mvapich below. 
 #INTERFACE=""            # blank for just ethernet make sure to use mpich below. 
 #
@@ -37,9 +38,12 @@ fi
 echo "module load $MPI_MODULE" > load_modules
 echo "module load apps/amber14" >> load_modules
 source load_modules
-  
-  for NPROC in 1 2 4 8 16 32 64 128 192 256
+
+mkdir -p $RUNS_DIR
+cd $RUNS_DIR
+  for NPROC in 001 002 004 008 016 032 064 128 192 256
   do
+    mkdir $NPROC
     NODES=$(($NPROC/$PROCS_PER_NODE))
     if [ "$NODES" -le "1" ];  then 
         NODES=1
@@ -50,18 +54,18 @@ source load_modules
     # 
     # Run the example code for the amount of processors
     #
-    echo "#!/bin/bash -i" > job-$NPROC.run
-    echo 'cd $PBS_O_WORKDIR' >> job-$NPROC.run
-    echo 'export PATH=$PBS_O_PATH' >> job-$NPROC.run
-    echo "source load_modules" >> job-$NPROC.run
-    echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i etc/amber.in -o amber-$NPROC.out -p etc/2e98-hid43-init-ions-wat.prmtop -c etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> job-$NPROC.run
-    echo "mv mdinfo mdinfo.$NPROC" >> job-$NPROC.run
-    echo "mv logfile logfile.$NPROC" >> job-$NPROC.run
+    echo "#!/bin/bash -i" > $NPROC/job-$NPROC.run
+    echo 'cd $PBS_O_WORKDIR' >> $NPROC/job-$NPROC.run
+    echo 'export PATH=$PBS_O_PATH' >> $NPROC/job-$NPROC.run
+    echo "source load_modules" >> $NPROC/job-$NPROC.run
+    echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> $NPROC/job-$NPROC.run
+    #echo "mv mdinfo mdinfo.$NPROC" >> $NPROC/job-$NPROC.run
+    #echo "mv logfile logfile.$NPROC" >> $NPROC/job-$NPROC.run
     #
     # now submit the job
     #
+    cd $RUNS_DIR/$NPROC
     $PBS_QSUB_CMD -N $NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
-
     
   done
    
