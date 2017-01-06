@@ -91,7 +91,7 @@ stuff<-read.csv("results.csv",header=TRUE)
 attach(stuff)
 library(car)
 png("results.png",bg="transparent",width=750,height=350)
-scatterplot(NPROC~NS_PER_DAY)
+scatterplot(NS_PER_DAY~NPROC)
 dev.off() # file will be saved in working directory (no screen display)
 
 EOF
