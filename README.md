@@ -13,6 +13,7 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
        
    *   Torque PBS queue server is assumed for job creation. 
 
+<br/>
 
   <strong>Step 1:  execute the run_tests.sh script. Be sure to update the script variables for your environment.</strong>
   
@@ -20,7 +21,9 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
      You can specify the NCPUS in the run_test.sh script. The jobs will take some time. 
      The large ones will complete first and the last to complete is the 2 CPU. 
      It usually finishes in under 1.5 hours which is what the walltime is set for the job runs. 
-     
+
+<br/>
+
 <strong> Step 2:  compile the results. </strong>
  
     After all the jobs are run and off the queue you'll need to gather the results and create the web page and graph. 
