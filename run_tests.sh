@@ -81,6 +81,24 @@ echo "NS_PER_DAY,NPROC,WALLTIME" > results.csv
     
   done
    
+   #
+   # create the script to make the graph
+   #
+   touch $RUNS_DIR/make_graph.R
+   tee $RUNS_DIR/make_graph.R <<EOF
    
+#!/usr/bin/env Rscript
+stuff<-read.csv("results.csv",header=TRUE)
+# or full path to filename in place of file.choose() function
+attach(stuff)
+library(car)
+# svg("r-transparent.svg",bg="transparent",width=5,height=5)
+png("results.png",bg="transparent",width=1000,height=550)
+scatterplot(NPROC~NS_PER_DAY)
+dev.off() # file will be saved in working directory (no screen display)
+
+EOF
+
+chmod 755 $RUNS_DIR/make_graph.R
 
 
