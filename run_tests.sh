@@ -49,7 +49,7 @@ echo "NS_PER_DAY,NPROC" > results.csv
 #
 # now loop through the amount of CPU's and run jobs for each one
 #
-  for NPROC in 2 4 8 16 32 64 128 192 256 352
+  for NPROC in 2 4 8 16 32 64 128 192 256 336
   do
     mkdir -p proc-$NPROC
     NODES=$(($NPROC/$PROCS_PER_NODE))
