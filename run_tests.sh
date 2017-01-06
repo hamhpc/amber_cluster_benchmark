@@ -85,8 +85,7 @@ echo "NS_PER_DAY,NPROC" > results.csv
    # create the script to make the graph
    #
    touch $RUNS_DIR/make_graph.R
-   tee $RUNS_DIR/make_graph.R <<EOF
-   
+   tee $RUNS_DIR/make_graph.R <<EOF 
 #!/usr/bin/env Rscript
 stuff<-read.csv("results.csv",header=TRUE)
 attach(stuff)
