@@ -128,8 +128,6 @@ EOF
 # make the index page
 #
 mkdir -p ~/public_html/amber_cluster_benchmark/img
-chmod -R 755 ~/public_html
-chmod o+rx ~/     # make sure the world can get at public_html for read/execute. 
 touch ~/public_html/amber_cluster_benchmark/index.html
 tee ~/public_html/amber_cluster_benchmark/index.html <<EOF 
 
