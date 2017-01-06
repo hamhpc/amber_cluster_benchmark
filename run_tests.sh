@@ -45,7 +45,7 @@ cd $RUNS_DIR
 #
 # create results file header
 #
-echo "NS_PER_DAY,NPROC,WALLTIME" > results.csv
+echo "NS_PER_DAY,NPROC" > results.csv
 #
 # now loop through the amount of CPU's and run jobs for each one
 #
@@ -70,7 +70,7 @@ echo "NS_PER_DAY,NPROC,WALLTIME" > results.csv
     echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> proc-$NPROC/job-$NPROC.run
     echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> proc-$NPROC/job-$NPROC.run
     echo "NPROC=\`pwd | awk -F/ '{print \$6}'|awk -F- '{print \$2}'\`" >> proc-$NPROC/job-$NPROC.run
-    echo 'echo "$NS_PER_DAY,$NPROC,$PBS_WALLTIME" >> ../results.csv' >> proc-$NPROC/job-$NPROC.run
+    echo 'echo "$NS_PER_DAY,$NPROC" >> ../results.csv' >> proc-$NPROC/job-$NPROC.run
     echo "date" >> proc-$NPROC/job-$NPROC.run
     #
     # now submit the job
