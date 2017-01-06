@@ -14,21 +14,18 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
    *   Torque PBS queue server is assumed for job creation. 
 
 <br/>
-
 <strong> Step 1:  clone the repository with git. </strong>
 
     % git clone https://github.com/hamhpc/amber_cluster_benchmark.git
     % cd amber_cluster_benchmark
     
 <br/>
-
 <strong> Step 2:  edit the configuration. </strong>
 
     Edit the run_tests.sh script to make sure that it will operate in your environment. 
     % vi run_tests.sh
     
 <br/>
-
   <strong>Step 3:  run the tests.</strong>
   
     % cd amber_cluster_benchmark
@@ -40,7 +37,6 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
      It usually finishes in under 1.5 hours which is what the walltime is set for the job runs. 
 
 <br/>
-
 <strong> Step 4:  compile the results. </strong>
  
     After all the jobs are run and off the queue you'll need to gather the results and create the web page and graph. 
