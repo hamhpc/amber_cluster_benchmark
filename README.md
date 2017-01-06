@@ -4,11 +4,14 @@ A process to submit an amber job to a cluster for a range of Processors.
 The metrics are gathered to record the results in ns/day to see the scaling metrics. 
 
 Requirements:  
-       *   R software = R is needed to generate the png graph of the results. 
-       *   Amber software = Amber is purchased from http://ambermd.org
-       *   A web server that has User_dir enabled for Apache. This allows users to have a website at http://<web server>/~<username>
-           that is located at /home/username/public_html. 
-       *   Torque PBS queue server is assumed for job creation. 
+   *   R software = R is needed to generate the png graph of the results. 
+   
+   *   Amber software = Amber is purchased from http://ambermd.org
+   
+   *   A web server that has User_dir enabled for Apache. This allows users to have a website at http://<web server>/~<username>
+       that is located at /home/username/public_html. 
+       
+   *   Torque PBS queue server is assumed for job creation. 
 
 Intro:
 
