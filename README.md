@@ -19,11 +19,11 @@ Intro:
 
 Usage: 
 
-  Step 1:  execute the run_tests.sh script. Be sure to update the script variables for your environment. 
+  <strong>Step 1:  execute the run_tests.sh script. Be sure to update the script variables for your environment.</strong>
   
      This will submit a bunch of jobs to the queue. It's a sequence of NPROC's from 2 up to the max. You can specify the NCPUS in the run_test.sh script. The jobs will take some time. The large ones will complete fisrt and the last to complete is the 2 CPU. It usually finishes in under 1.5 hours which is what the walltime is set for the job runs. 
      
- Step 2:  compile the results. 
+<strong> Step 2:  compile the results. </strong>
  
     After all the jobs are run and off the queue you'll need to gaterh the results and create the web page and graph. 
     
