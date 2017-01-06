@@ -119,7 +119,9 @@ chmod 755 $RUNS_DIR/make_graph.R
 touch $RUNS_DIR/make_web.sh
 tee $RUNS_DIR/make_web.sh <<EOF 
 #!/bin/bash
-sort --field-separator=',' -n -k2 -k1 $RESULTS_FILE.csv
+sort --field-separator=',' -n -k2 -k1 $RESULTS_FILE.csv >> results.csv
+rm -f $RESULTS_FILE.csv
+mv results.csv $RESULTS_FILE.csv
 ./make_graph.R
 cp $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/
 
