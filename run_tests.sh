@@ -115,7 +115,7 @@ title(main="Amber MPI Scaling (IB)", col.main="red", font.main=4)
 # Label the x and y axes with dark green text
 title(xlab="Processors", col.lab=rgb(0,0.5,0))
 title(ylab="NS/Day", col.lab=rgb(0,0.5,0))
-scatterplot(NS_PER_DAY~NPROC)
+scatterplot(NS_PER_DAY~NPROC, ylim=c(0,20))
 dev.off() # file will be saved in working directory (no screen display)
 
 EOF
