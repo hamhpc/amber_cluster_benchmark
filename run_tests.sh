@@ -91,6 +91,11 @@ stuff<-read.csv("results.csv",header=TRUE)
 attach(stuff)
 library(car)
 png("results.png",bg="transparent",width=750,height=350)
+# Create a title with a red, bold/italic font
+title(main="Amber MPI Scaling (IB)", col.main="red", font.main=4)
+# Label the x and y axes with dark green text
+title(xlab="Processors", col.lab=rgb(0,0.5,0))
+title(ylab="NS/Day", col.lab=rgb(0,0.5,0))
 scatterplot(NS_PER_DAY~NPROC)
 dev.off() # file will be saved in working directory (no screen display)
 
