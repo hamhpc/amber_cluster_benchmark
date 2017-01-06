@@ -120,18 +120,18 @@ touch $RUNS_DIR/make_web.sh
 tee $RUNS_DIR/make_web.sh <<EOF 
 #!/bin/bash
 ./make_graph.R
-cp $RESULTS_FILE.png ~/public_html/amber_benchmark_test/img/
+cp $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/
 
 EOF
 
 #
 # make the index page
 #
-mkdir -p ~/public_html/amber_benchmark_test/img
+mkdir -p ~/public_html/amber_cluster_benchmark/img
 chmod -R 755 ~/public_html
 chmod o+rx ~/     # make sure the world can get at public_html for read/execute. 
-touch ~/public_html/amber_benchmark_test/index.html
-tee ~/public_html/amber_benchmark_test/index.html <<EOF 
+touch ~/public_html/amber_cluster_benchmark/index.html
+tee ~/public_html/amber_cluster_benchmarks/index.html <<EOF 
 
 <html>
 <h2>HPC Benchmark for Amber</h2>
