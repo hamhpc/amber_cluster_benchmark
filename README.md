@@ -15,7 +15,7 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
 
 <br/>
 
-  <strong>Step 1:  execute the run_tests.sh script. Be sure to update the script variables for your environment.</strong>
+  <strong>Step 1:  execute the run_tests.sh script.</strong> (Be sure to update the script variables for your environment.)
   
      This will submit a bunch of jobs to the queue. It's a sequence of NPROC's from 2 up to the max. 
      You can specify the NCPUS in the run_test.sh script. The jobs will take some time. 
