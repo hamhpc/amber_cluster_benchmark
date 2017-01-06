@@ -26,9 +26,9 @@ MPI_MODULE="mpi/mvapich2-x86_64"
 #MPI_MODULE="mpi/mpich-x86_64"
 
 if [ $MPI_MODULE = "mpi/mvapich2-x86_64" ]; then
-	RESULTS_FILE=results-ib.csv
+	RESULTS_FILE=results-ib
 else
-	RESULTS_FILE=results-eth.csv
+	RESULTS_FILE=results-eth
 fi
 
 # Send mail when jobs start/stop and abort if enabled
@@ -51,7 +51,7 @@ cd $RUNS_DIR
 #
 # create results file header
 #
-echo "NS_PER_DAY,NPROC" > $RESULTS_FILE
+echo "NS_PER_DAY,NPROC" > $RESULTS_FILE.csv
 #
 # now loop through the amount of CPU's and run jobs for each one
 #
@@ -76,7 +76,7 @@ echo "NS_PER_DAY,NPROC" > $RESULTS_FILE
     echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> proc-$NPROC/job-$NPROC.run
     echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> proc-$NPROC/job-$NPROC.run
     echo "NPROC=\`pwd | awk -F/ '{print \$6}'|awk -F- '{print \$2}'\`" >> proc-$NPROC/job-$NPROC.run
-    echo 'echo "$NS_PER_DAY,$NPROC" >> ../RESULTS_FILE' >> proc-$NPROC/job-$NPROC.run
+    echo 'echo "$NS_PER_DAY,$NPROC" >> ../RESULTS_FILE.csv' >> proc-$NPROC/job-$NPROC.run
     echo "date" >> proc-$NPROC/job-$NPROC.run
     #
     # change the script to use the proper results file
@@ -97,10 +97,10 @@ echo "NS_PER_DAY,NPROC" > $RESULTS_FILE
    touch $RUNS_DIR/make_graph.R
    tee $RUNS_DIR/make_graph.R <<EOF 
 #!/usr/bin/env Rscript
-stuff<-read.csv("$RESULTS_FILE",header=TRUE)
+stuff<-read.csv("$RESULTS_FILE.csv",header=TRUE)
 attach(stuff)
 library(car)
-png("results.png",bg="transparent",width=750,height=350)
+png("$RESULTS_FILE.png",bg="transparent",width=750,height=350)
 # Create a title with a red, bold/italic font
 title(main="Amber MPI Scaling (IB)", col.main="red", font.main=4)
 # Label the x and y axes with dark green text
@@ -113,4 +113,37 @@ EOF
 
 chmod 755 $RUNS_DIR/make_graph.R
 
+#
+# create the script to make the webpage
+#
+touch $RUNS_DIR/make_web.sh
+tee $RUNS_DIR/make_web.sh <<EOF 
+#!/bin/bash
+./make_graph.R
+cp $RESULTS_FILE.png ~/public_html/amber_benchmark_test/img/
+
+EOF
+
+#
+# make the index page
+#
+mkdir -p ~/public_html/amber_benchmark_test/img
+chmod -R 755 ~/public_html
+chmod o+rx ~/     # make sure the world can get at public_html for read/execute. 
+touch ~/public_html/amber_benchmark_test/index.html
+tee ~/public_html/amber_benchmark_test/index.html <<EOF 
+
+<html>
+<h2>HPC Benchmark for Amber</h2>
+<body>
+
+<strong>Amber Results in NS/Day (Infiniband)</strong>
+<br/>
+<img src="img/results-ib.png" alt="Graph of Results" height="350" width="750">
+<br/>
+
+</body>
+</html>
+
+EOF
 
