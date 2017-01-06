@@ -8,7 +8,7 @@ Requirements:
    
    *   Amber software = Amber is purchased from http://ambermd.org
    
-   *   A web server that has User_dir enabled for Apache. This allows users to have a website at http://<web server>/~<username>
+   *   A web server that has User_dir enabled for Apache. This allows users to have a website at http://web-server/~username
        that is located at /home/username/public_html. 
        
    *   Torque PBS queue server is assumed for job creation. 
