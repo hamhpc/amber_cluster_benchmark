@@ -1,4 +1,4 @@
-# amber_cluster_benchmark
+# Amber Cluster Benchmark
 
 A process to submit an amber job to a cluster for a range of Processors.  
 The metrics are gathered to record the results in ns/day to see the scaling metrics. 
