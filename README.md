@@ -3,7 +3,7 @@
 A process to submit an amber job to a cluster for a range of Processors.  
 The metrics are gathered to record the results in ns/day to see the scaling metrics. 
 
-Requirements:  
+<strong>Requirements:</strong>  
    *   R software = R is needed to generate the png graph of the results. Obtained from https://www.r-project.org/ 
    
    *   Amber software = Amber is purchased from http://ambermd.org
