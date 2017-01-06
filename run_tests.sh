@@ -73,7 +73,7 @@ echo "NS_PER_DAY,NPROC" > $RESULTS_FILE.csv
     echo 'export PATH=$PBS_O_PATH' >> proc-$NPROC/job-$NPROC.run
     echo "source ../load_modules" >> proc-$NPROC/job-$NPROC.run
     echo "date" >> proc-$NPROC/job-$NPROC.run
-    echo "mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> proc-$NPROC/job-$NPROC.run
+    echo "/usr/bin/time mpiexec -np $NPROC $INTERFACE pmemd.MPI -O -i ~/amber_cluster_benchmark/etc/amber.in -o amber-$NPROC.out -p ~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop -c ~/amber_cluster_benchmark/etc/amber.rst -r amber-$NPROC.rst -x amber-$NPROC.mdcrd" >> proc-$NPROC/job-$NPROC.run
     echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> proc-$NPROC/job-$NPROC.run
     echo "NPROC=\`pwd | awk -F/ '{print \$6}'|awk -F- '{print \$2}'\`" >> proc-$NPROC/job-$NPROC.run
     echo 'echo "$NS_PER_DAY,$NPROC" >> ../RESULTS_FILE.csv' >> proc-$NPROC/job-$NPROC.run
