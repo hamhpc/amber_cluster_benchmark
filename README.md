@@ -33,7 +33,8 @@ Usage:
     % cd ~/amber_cluster_bechmark/results_Jan-06-2017-15:27            (note it'll have the date of when you ran these tests)   
     % ./make_web.sh
     
-    This will run the R script to generate the graph called make_graph.R. It'll also build this results in your home directory. 
+    This will run the R script to generate the graph called make_graph.R. 
+    It'll also build this results in your home directory. 
     
     From the head node webserver access: 
     
