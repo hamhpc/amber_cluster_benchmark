@@ -28,7 +28,7 @@ Usage:
      
 <strong> Step 2:  compile the results. </strong>
  
-    After all the jobs are run and off the queue you'll need to gaterh the results and create the web page and graph. 
+    After all the jobs are run and off the queue you'll need to gather the results and create the web page and graph. 
     
     % cd ~/amber_cluster_bechmark/results_Jan-06-2017-15:27    (note it'll have the date of when you ran these tests)   
     % ./make_web.sh
