@@ -119,8 +119,10 @@ chmod 755 $RUNS_DIR/make_graph.R
 touch $RUNS_DIR/make_web.sh
 tee $RUNS_DIR/make_web.sh <<EOF 
 #!/bin/bash
+sort --field-separator=',' -n -k2 -k1 $RESULTS_FILE.csv
 ./make_graph.R
 cp $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/
+
 
 EOF
 
@@ -137,7 +139,7 @@ tee ~/public_html/amber_cluster_benchmark/index.html <<EOF
 
 <strong>Amber Results in NS/Day (Infiniband)</strong>
 <br/>
-<img src="img/results-ib.png" alt="Graph of Results" height="350" width="750">
+<img src="img/$RESULTS_FILE.png" alt="Graph of Results" height="350" width="750">
 <br/>
 
 </body>
