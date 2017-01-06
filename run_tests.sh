@@ -55,7 +55,16 @@ echo "NS_PER_DAY,NPROC" > $RESULTS_FILE.csv
 #
 # now loop through the amount of CPU's and run jobs for each one
 #
-  for NPROC in 2 4 8 16 32 64 128 192 256 336
+# this sequence is the number of processors. You might want to adjust for your cluster
+#
+# Assuming 8 cores per node pick numbers from the following chart.
+#
+# NODES: 1 | 2  | 4  | 6  | 8  | 12 | 16  | 20  | 24  | 28  | 32  | 36  | 40  | 44  | 48  | 52
+# NPROC: 8 | 16 | 32 | 48 | 64 | 96 | 128 | 160 | 192 | 224 | 256 | 288 | 320 | 352 | 384 | 416
+#
+# Note: NPROC 2,4 and 8 all work on one node. 
+#
+  for NPROC in 2 4 8 16 32 48 64 96 128 160 192 224 256 288 320 336
   do
     mkdir -p proc-$NPROC
     NODES=$(($NPROC/$PROCS_PER_NODE))
