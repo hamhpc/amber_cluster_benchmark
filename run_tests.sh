@@ -89,11 +89,9 @@ echo "NS_PER_DAY,NPROC,WALLTIME" > results.csv
    
 #!/usr/bin/env Rscript
 stuff<-read.csv("results.csv",header=TRUE)
-# or full path to filename in place of file.choose() function
 attach(stuff)
 library(car)
-# svg("r-transparent.svg",bg="transparent",width=5,height=5)
-png("results.png",bg="transparent",width=1000,height=550)
+png("results.png",bg="transparent",width=750,height=350)
 scatterplot(NPROC~NS_PER_DAY)
 dev.off() # file will be saved in working directory (no screen display)
 
