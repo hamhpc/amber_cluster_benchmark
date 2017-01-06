@@ -147,3 +147,5 @@ tee ~/public_html/amber_benchmark_test/index.html <<EOF
 
 EOF
 
+chmod -R 755 ~/public_html
+
