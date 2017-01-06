@@ -15,7 +15,24 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
 
 <br/>
 
-  <strong>Step 1:  execute the run_tests.sh script.</strong> (Be sure to update the script variables for your environment.)
+<strong> Step 1:  clone the repository with git. </strong>
+
+    % git clone https://github.com/hamhpc/amber_cluster_benchmark.git
+    % cd amber_cluster_benchmark
+    
+<br/>
+
+<strong> Step 2:  edit the configuration. </strong>
+
+    Edit the run_tests.sh script to make sure that it will operate in your environment. 
+    % vi run_tests.sh
+    
+<br/>
+
+  <strong>Step 3:  run the tests.</strong>
+  
+    % cd amber_cluster_benchmark
+    % ./run_tests.sh                
   
      This will submit a bunch of jobs to the queue. It's a sequence of NPROC's from 2 up to the max. 
      You can specify the NCPUS in the run_test.sh script. The jobs will take some time. 
@@ -24,7 +41,7 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
 
 <br/>
 
-<strong> Step 2:  compile the results. </strong>
+<strong> Step 4:  compile the results. </strong>
  
     After all the jobs are run and off the queue you'll need to gather the results and create the web page and graph. 
     
