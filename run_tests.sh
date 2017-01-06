@@ -59,12 +59,12 @@ echo "NS_PER_DAY,NPROC" > $RESULTS_FILE.csv
 #
 # Assuming 8 cores per node pick numbers from the following chart.
 #
-# NODES: 1 | 2  | 4  | 6  | 8  | 12 | 16  | 20  | 24  | 28  | 32  | 36  | 40  | 44  | 48  | 52
-# NPROC: 8 | 16 | 32 | 48 | 64 | 96 | 128 | 160 | 192 | 224 | 256 | 288 | 320 | 352 | 384 | 416
+# NODES: 1 | 2  | 4  | 6  | 8  | 12 | 14  | 16  | 18  | 20  | 22  | 24  | 28  | 32  | 36  | 40  | 42  | 44  | 48  | 52
+# NPROC: 8 | 16 | 32 | 48 | 64 | 96 | 112 | 128 | 144 | 160 | 176 | 192 | 224 | 256 | 288 | 320 | 336 | 352 | 384 | 416
 #
 # Note: NPROC 2,4 and 8 all work on one node. 
 #
-  for NPROC in 2 4 8 16 32 48 64 96 128 160 192 224 256 288 320 336
+  for NPROC in 2 4 8 16 32 48 64 96 112 128 144 160 176 192 224 256 288 320 336
   do
     mkdir -p proc-$NPROC
     NODES=$(($NPROC/$PROCS_PER_NODE))
