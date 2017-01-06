@@ -32,7 +32,7 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
     % ./make_web.sh
     
     This will run the R script to generate the graph called make_graph.R. 
-    It'll also build this results in your home directory. 
+    It'll also build the results in your public_html directory. 
     
     From the head node webserver access: 
     
