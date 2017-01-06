@@ -13,11 +13,6 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
        
    *   Torque PBS queue server is assumed for job creation. 
 
-Intro:
-
-
-
-Usage: 
 
   <strong>Step 1:  execute the run_tests.sh script. Be sure to update the script variables for your environment.</strong>
   
