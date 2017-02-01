@@ -44,7 +44,7 @@ fi
 
 mkdir -p $RUNS_DIR
 echo "module load $MPI_MODULE" > $RUNS_DIR/load_modules
-echo "module load apps/amber14" >> $RUNS_DIR/load_modules
+echo "module load amber/14" >> $RUNS_DIR/load_modules
 source $RUNS_DIR/load_modules
 
 cd $RUNS_DIR
