@@ -11,7 +11,7 @@ AMBER_OUT=amber.out
 RESTART_OUT=amber.rst 
 COORD=amber.mdcrd
 #
-# change these for a differnt system
+# change these for a different system
 #
 RESTART_IN=~/amber_cluster_benchmark/etc/amber.rst 
 PRMTOP=~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop
