@@ -55,7 +55,7 @@ cd $RUNS_DIR
 #
 # create results file header
 #
-echo "NS_PER_DAY,NPROC" > $RESULTS_FILE.csv
+echo "NS_PER_DAY,GPU_HOST" > $RESULTS_FILE.csv
 #
 # now loop through the amount of GPU's and run jobs for each one
 #
@@ -109,9 +109,9 @@ stuff<-read.csv("$RESULTS_FILE.csv",header=TRUE)
 attach(stuff)
 library(car)
 png("$RESULTS_FILE.png",bg="transparent",width=750,height=350)
-scatterplot(NS_PER_DAY~NPROC,ylim=c(0,20),)
+scatterplot(NS_PER_DAY~GPU_HOST,ylim=c(0,20),)
 # Create a title with a red, bold/italic font
-title(main="Amber MPI Scaling (IB)", col.main="red", font.main=4)
+title(main="Amber GPU Test", col.main="red", font.main=4)
 # Label the x and y axes with dark green text
 #title(xlab="Processors", col.lab=rgb(0,0.5,0))
 #title(ylab="NS/Day", col.lab=rgb(0,0.5,0))
@@ -145,11 +145,18 @@ tee ~/public_html/amber_cluster_benchmark/index.html <<EOF
 <html>
 <h2>HPC Benchmark for Amber</h2>
 <body>
-<strong>Amber Results in NS/Day (Infiniband)</strong>
+<strong>Cluster Results in NS/Day (Infiniband)</strong>
 <br/>
 <img src="img/$RESULTS_FILE.png" alt="Graph of Results" height="350" width="750">
 <br/>
-<a href="img/">Listing of All Result Images</a>
+
+<strong>GPU Results in NS/Day</strong>
+<br/>
+<img src="img/results-gpu.png" alt="Graph of GPU Results" height="350" width="750">
+<br/>
+
+
+<a href="img/">Listing of All Results Images</a>
 <br/>
 </body>
 </html>
