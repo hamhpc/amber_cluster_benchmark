@@ -147,6 +147,8 @@ cp $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/
 
 EOF
 
+chmod 755 $RUNS_DIR/make_web.sh
+
 #
 # make the index page
 #
