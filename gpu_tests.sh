@@ -75,14 +75,14 @@ echo "NS_PER_DAY,NPROC" > $RESULTS_FILE.csv
     # 
     # create the code for this job to submit to the cluster
     #
-    echo "#!/bin/bash -i" > gpu-$NPROC/gpu-$NPROC.run
-    echo 'cd $PBS_O_WORKDIR' >> gpu-$NPROC/gpu-$NPROC.run
-    echo 'export PATH=$PBS_O_PATH' >> gpu-$NPROC/gpu-$NPROC.run
-    echo "source ../load_modules" >> gpu-$NPROC/gpu-$NPROC.run
-    echo "date" >> gpu-$NPROC/gpu-$NPROC.run
-    echo 'cat $PBS_NODEFILE | awk -F. '{print $1}' > gpu-card-used' >> gpu-$NPROC/gpu-$NPROC.run
+    echo "#!/bin/bash -i" > gpu-$NPROC/job-$NPROC.run
+    echo 'cd $PBS_O_WORKDIR' >> gpu-$NPROC/job-$NPROC.run
+    echo 'export PATH=$PBS_O_PATH' >> gpu-$NPROC/job-$NPROC.run
+    echo "source ../load_modules" >> gpu-$NPROC/job-$NPROC.run
+    echo "date" >> gpu-$NPROC/job-$NPROC.run
+    echo 'cat $PBS_NODEFILE | awk -F. '{print $1}' > gpu-card-used' >> gpu-$NPROC/job-$NPROC.run
     echo "/usr/bin/time mpiexec -np $NPROC $INTERFACE $APPLICATION -O -i $AMBER_IN -o $AMBER_OUT -p $PRMTOP -c $RESTART_IN -r $RESTART_OUT -x $COORD" >> gpu-$NPROC/job-$NPROC.run
-    echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> gpu-$NPROC/gpu-$NPROC.run
+    echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> gpu-$NPROC/job-$NPROC.run
     echo 'NPROC=`cat gpu-card-used`' >> gpu-$NPROC/job-$NPROC.run
     echo 'echo "$NS_PER_DAY,$NPROC" >> ../RESULTS_FILE.csv' >> gpu-$NPROC/job-$NPROC.run
     echo "date" >> gpu-$NPROC/job-$NPROC.run
