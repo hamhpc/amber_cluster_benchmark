@@ -160,18 +160,21 @@ tee ~/public_html/amber_cluster_benchmark/index.html <<EOF
 <html>
 <h2>HPC Benchmark for Amber</h2>
 <body>
-
-<strong>Amber Results in NS/Day (Infiniband)</strong>
+<strong>Cluster Results in NS/Day (Infiniband)</strong>
 <br/>
 <img src="img/$RESULTS_FILE.png" alt="Graph of Results" height="350" width="750">
 <br/>
 
-<a href="img/">Listing of All Result Images</a>
+<strong>GPU Results in NS/Day</strong>
+<br/>
+<img src="img/results-gpu.png" alt="Graph of GPU Results" height="350" width="750">
+<br/>
 
+
+<a href="img/">Listing of All Results Images</a>
 <br/>
 </body>
 </html>
-
 EOF
 
 chmod -R 755 ~/public_html
