@@ -142,8 +142,8 @@ sort --field-separator=',' -n -k2 -k1 $RESULTS_FILE.csv >> results.csv
 rm -f $RESULTS_FILE.csv
 mv results.csv $RESULTS_FILE.csv
 ./make_graph.R
-cp $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/
-
+cp -f $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/
+cp -f $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/results_$RUN_DATE.png
 
 EOF
 
@@ -165,6 +165,9 @@ tee ~/public_html/amber_cluster_benchmark/index.html <<EOF
 <img src="img/$RESULTS_FILE.png" alt="Graph of Results" height="350" width="750">
 <br/>
 
+<a href="img/">Listing of All Result Images</a>
+
+<br/>
 </body>
 </html>
 
