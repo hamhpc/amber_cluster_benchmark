@@ -95,7 +95,7 @@ echo "NS_PER_DAY,GPU_HOST" > $RESULTS_FILE.csv
     # now submit the job
     #
     cd $RUNS_DIR/gpu-$NPROC
-    $PBS_QSUB_CMD -N MpiGTest-$NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
+    $PBS_QSUB_CMD -N GPUTest-$NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
     cd ..
     
   done
