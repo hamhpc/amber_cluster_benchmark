@@ -32,6 +32,7 @@ INTERFACE=""  # blank for just ethernet
 # only use one or the other or the jobs will fail
 #
 MPI_MODULE="mpi/mpich-x86_64"
+CUDA_MODULE="cuda/7.5"
 RESULTS_FILE=results-gpu
 
 
@@ -48,6 +49,7 @@ fi
 
 mkdir -p $RUNS_DIR
 echo "module load $MPI_MODULE" > $RUNS_DIR/load_modules
+echo "module load $CUDA_MODULE" >> $RUNS_DIR/load_modules
 echo "module load amber/14" >> $RUNS_DIR/load_modules
 source $RUNS_DIR/load_modules
 
