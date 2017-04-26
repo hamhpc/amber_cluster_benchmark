@@ -7,12 +7,16 @@
 # Amber VARIABLES
 #
 APPLICATION=pmemd.MPI
-AMBER_IN=~/amber_cluster_benchmark/etc/amber.in
 AMBER_OUT=amber.out
-PRMTOP=~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop
-RESTART_IN=~/amber_cluster_benchmark/etc/amber.rst 
 RESTART_OUT=amber.rst 
 COORD=amber.mdcrd
+#
+# change these for a differnt system
+#
+RESTART_IN=~/amber_cluster_benchmark/etc/amber.rst 
+PRMTOP=~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop
+AMBER_IN=~/amber_cluster_benchmark/etc/amber.in
+
 #
 # Declare some variables
 #
