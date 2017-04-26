@@ -136,3 +136,4 @@ cp -f $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/results_gpu-$R
 EOF
 
 chmod 755 $RUNS_DIR/make_web.sh
+chmod -R 755 ~/public_html/amber_cluster_benchmark
