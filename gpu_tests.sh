@@ -64,7 +64,7 @@ echo "NS_PER_DAY,GPU_HOST" > $RESULTS_FILE.csv
 # this sequence is the number of GPU cards in the cluster. 
 #
 #
-  for NPROC in 1 2 3 4 5 6 7
+  for NPROC in 1 2 3 4 5 6 7 8
   do
     mkdir -p gpu-$NPROC
     NODES=1
