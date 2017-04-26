@@ -67,13 +67,8 @@ echo "NS_PER_DAY,GPU_HOST" > $RESULTS_FILE.csv
   for NPROC in 1 2 3 4 5 6 7
   do
     mkdir -p gpu-$NPROC
-    NODES=$(($NPROC/$PROCS_PER_NODE))
-    if [ "$NODES" -le "1" ];  then 
-        NODES=1
-	PPN=$NPROC
-    else 
-	PPN=$PROCS_PER_NODE
-    fi
+    NODES=1
+    PPN=1
     # 
     # create the code for this job to submit to the cluster
     #
