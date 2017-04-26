@@ -10,8 +10,8 @@ APPLICATION=pmemd.MPI
 AMBER_IN=~/amber_cluster_benchmark/etc/amber.in
 AMBER_OUT=amber.out
 PRMTOP=~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop
-RESTART_IN=~/amber_cluster_benchmark/etc/amber-in.rst 
-RESTART_OUT=~/amber_cluster_benchmark/etc/amber-out.rst 
+RESTART_IN=~/amber_cluster_benchmark/etc/amber.rst 
+RESTART_OUT=amber.rst 
 COORD=amber.mdcrd
 #
 # Declare some variables
