@@ -92,7 +92,11 @@ echo "NS_PER_DAY,NPROC" > $RESULTS_FILE.csv
     echo 'export PATH=$PBS_O_PATH' >> proc-$NPROC/job-$NPROC.run
     echo "source ../load_modules" >> proc-$NPROC/job-$NPROC.run
     echo "date" >> proc-$NPROC/job-$NPROC.run
-    echo 'cat $PBS_NODEFILE | awk -F. '{print $1}' > compute-nodes-used' >> proc-$NPROC/job-$NPROC.run
+    # echo 'cat $PBS_NODEFILE | awk -F. '{print $1}' > compute-nodes-used' >> proc-$NPROC/job-$NPROC.run
+    echo -n 'cat $PBS_NODEFILE | awk -F.' >> proc-$NPROC/job-$NPROC.run
+    echo -n " '{print"  >> proc-$NPROC/job-$NPROC.run
+    echo -n ' $1}'
+    echo "' > compute-nodes-used" >> proc-$NPROC/job-$NPROC.run
     echo "/usr/bin/time mpiexec -np $NPROC $INTERFACE $APPLICATION -O -i $AMBER_IN -o $AMBER_OUT -p $PRMTOP -c $RESTART_IN -r $RESTART_OUT -x $COORD" >> proc-$NPROC/job-$NPROC.run
     echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> proc-$NPROC/job-$NPROC.run
     echo "NPROC=\`pwd | awk -F/ '{print \$6}'|awk -F- '{print \$2}'\`" >> proc-$NPROC/job-$NPROC.run
