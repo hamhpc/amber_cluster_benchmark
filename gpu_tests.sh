@@ -6,7 +6,7 @@
 #
 # Amber VARIABLES
 #
-APPLICATION=pmemd.MPI
+APPLICATION=pmemd.cuda
 AMBER_IN=~/amber_cluster_benchmark/etc/amber.in
 AMBER_OUT=amber.out
 PRMTOP=~/amber_cluster_benchmark/etc/2e98-hid43-init-ions-wat.prmtop
@@ -31,6 +31,7 @@ INTERFACE=""  # blank for just ethernet
 # If it's IB then use mvapich if ETH then mpich
 # only use one or the other or the jobs will fail
 #
+MPI_MODULE="mpi/mpich-x86_64"
 RESULTS_FILE=results-gpu
 
 
@@ -56,48 +57,43 @@ cd $RUNS_DIR
 #
 echo "NS_PER_DAY,NPROC" > $RESULTS_FILE.csv
 #
-# now loop through the amount of CPU's and run jobs for each one
+# now loop through the amount of GPU's and run jobs for each one
 #
-# this sequence is the number of processors. You might want to adjust for your cluster
+# this sequence is the number of GPU cards in the cluster. 
 #
-# Assuming 8 cores per node pick numbers from the following chart.
 #
-# NODES: 1 | 2  | 4  | 6  | 8  | 12 | 14  | 16  | 18  | 20  | 22  | 24  | 28  | 32  | 36  | 40  | 42  | 44  | 48  | 52
-# NPROC: 8 | 16 | 32 | 48 | 64 | 96 | 112 | 128 | 144 | 160 | 176 | 192 | 224 | 256 | 288 | 320 | 336 | 352 | 384 | 416
-#
-# Note: NPROC 2,4 and 8 all work on one node. 
-#
-  for NPROC in 2 4 8 16 32 48 64 96 112 128 144 160 176 192 224 256 288 320 336
+  for NPROC in 1 2 3 4 5 6 7
   do
-    mkdir -p proc-$NPROC
+    mkdir -p gpu-$NPROC
     NODES=$(($NPROC/$PROCS_PER_NODE))
     if [ "$NODES" -le "1" ];  then 
         NODES=1
-	      PPN=$NPROC
+	PPN=$NPROC
     else 
-	      PPN=$PROCS_PER_NODE
+	PPN=$PROCS_PER_NODE
     fi
     # 
     # create the code for this job to submit to the cluster
     #
-    echo "#!/bin/bash -i" > proc-$NPROC/job-$NPROC.run
-    echo 'cd $PBS_O_WORKDIR' >> proc-$NPROC/job-$NPROC.run
-    echo 'export PATH=$PBS_O_PATH' >> proc-$NPROC/job-$NPROC.run
-    echo "source ../load_modules" >> proc-$NPROC/job-$NPROC.run
-    echo "date" >> proc-$NPROC/job-$NPROC.run
-    echo "/usr/bin/time mpiexec -np $NPROC $INTERFACE $APPLICATION -O -i $AMBER_IN -o $AMBER_OUT -p $PRMTOP -c $RESTART_IN -r $RESTART_OUT -x $COORD" >> proc-$NPROC/job-$NPROC.run
-    echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> proc-$NPROC/job-$NPROC.run
-    echo "NPROC=\`pwd | awk -F/ '{print \$6}'|awk -F- '{print \$2}'\`" >> proc-$NPROC/job-$NPROC.run
-    echo 'echo "$NS_PER_DAY,$NPROC" >> ../RESULTS_FILE.csv' >> proc-$NPROC/job-$NPROC.run
-    echo "date" >> proc-$NPROC/job-$NPROC.run
+    echo "#!/bin/bash -i" > gpu-$NPROC/gpu-$NPROC.run
+    echo 'cd $PBS_O_WORKDIR' >> gpu-$NPROC/gpu-$NPROC.run
+    echo 'export PATH=$PBS_O_PATH' >> gpu-$NPROC/gpu-$NPROC.run
+    echo "source ../load_modules" >> gpu-$NPROC/gpu-$NPROC.run
+    echo "date" >> gpu-$NPROC/gpu-$NPROC.run
+    echo 'cat $PBS_NODEFILE | awk -F. '{print $1}' > gpu-card-used' >> gpu-$NPROC/gpu-$NPROC.run
+    echo "/usr/bin/time mpiexec -np $NPROC $INTERFACE $APPLICATION -O -i $AMBER_IN -o $AMBER_OUT -p $PRMTOP -c $RESTART_IN -r $RESTART_OUT -x $COORD" >> gpu-$NPROC/job-$NPROC.run
+    echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> gpu-$NPROC/gpu-$NPROC.run
+    echo 'NPROC=`cat gpu-card-used`' >> gpu-$NPROC/job-$NPROC.run
+    echo 'echo "$NS_PER_DAY,$NPROC" >> ../RESULTS_FILE.csv' >> gpu-$NPROC/job-$NPROC.run
+    echo "date" >> gpu-$NPROC/job-$NPROC.run
     #
     # change the script to use the proper results file
     #
-    sed -i "s|RESULTS_FILE|${RESULTS_FILE}|g" proc-$NPROC/job-$NPROC.run
+    sed -i "s|RESULTS_FILE|${RESULTS_FILE}|g" gpu-$NPROC/job-$NPROC.run
     #
     # now submit the job
     #
-    cd $RUNS_DIR/proc-$NPROC
+    cd $RUNS_DIR/gpu-$NPROC
     $PBS_QSUB_CMD -N MpiTest-$NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
     cd ..
     
@@ -134,8 +130,8 @@ sort --field-separator=',' -n -k2 -k1 $RESULTS_FILE.csv >> results.csv
 rm -f $RESULTS_FILE.csv
 mv results.csv $RESULTS_FILE.csv
 ./make_graph.R
-cp -f $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/
-cp -f $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/results_$RUN_DATE.png
+cp -f $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/results-gpu.png
+cp -f $RESULTS_FILE.png ~/public_html/amber_cluster_benchmark/img/results_gpu-$RUN_DATE.png
 EOF
 
 chmod 755 $RUNS_DIR/make_web.sh
