@@ -85,7 +85,7 @@ echo "NS_PER_DAY,GPU_HOST" > $RESULTS_FILE.csv
     #echo 'cat $PBS_NODEFILE | awk -F. '{print $1}' > gpu-card-used' >> gpu-$NPROC/job-$NPROC.run
     echo -n 'cat $PBS_NODEFILE | awk -F.' >> proc-$NPROC/job-$NPROC.run
     echo -n " '{print"  >> proc-$NPROC/job-$NPROC.run
-    echo -n ' $1}'
+    echo -n ' $1}' >> proc-$NPROC/job-$NPROC.run
     echo "' > gpu-nodes-used" >> proc-$NPROC/job-$NPROC.run
     echo "/usr/bin/time mpiexec -np $NPROC $INTERFACE $APPLICATION -O -i $AMBER_IN -o $AMBER_OUT -p $PRMTOP -c $RESTART_IN -r $RESTART_OUT -x $COORD" >> gpu-$NPROC/job-$NPROC.run
     echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> gpu-$NPROC/job-$NPROC.run
