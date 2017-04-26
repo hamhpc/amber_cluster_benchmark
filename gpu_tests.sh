@@ -80,7 +80,11 @@ echo "NS_PER_DAY,GPU_HOST" > $RESULTS_FILE.csv
     echo 'export PATH=$PBS_O_PATH' >> gpu-$NPROC/job-$NPROC.run
     echo "source ../load_modules" >> gpu-$NPROC/job-$NPROC.run
     echo "date" >> gpu-$NPROC/job-$NPROC.run
-    echo 'cat $PBS_NODEFILE | awk -F. '{print $1}' > gpu-card-used' >> gpu-$NPROC/job-$NPROC.run
+    #echo 'cat $PBS_NODEFILE | awk -F. '{print $1}' > gpu-card-used' >> gpu-$NPROC/job-$NPROC.run
+    echo -n 'cat $PBS_NODEFILE | awk -F.' >> proc-$NPROC/job-$NPROC.run
+    echo -n " '{print"  >> proc-$NPROC/job-$NPROC.run
+    echo -n ' $1}'
+    echo "' > gpu-nodes-used" >> proc-$NPROC/job-$NPROC.run
     echo "/usr/bin/time mpiexec -np $NPROC $INTERFACE $APPLICATION -O -i $AMBER_IN -o $AMBER_OUT -p $PRMTOP -c $RESTART_IN -r $RESTART_OUT -x $COORD" >> gpu-$NPROC/job-$NPROC.run
     echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> gpu-$NPROC/job-$NPROC.run
     echo 'NPROC=`cat gpu-card-used`' >> gpu-$NPROC/job-$NPROC.run
@@ -94,7 +98,7 @@ echo "NS_PER_DAY,GPU_HOST" > $RESULTS_FILE.csv
     # now submit the job
     #
     cd $RUNS_DIR/gpu-$NPROC
-    $PBS_QSUB_CMD -N MpiTest-$NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
+    $PBS_QSUB_CMD -N MpiGTest-$NPROC -l nodes=$NODES:ppn=$PPN job-$NPROC.run
     cd ..
     
   done
