@@ -50,6 +50,38 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
     From the head node webserver access: 
     
     http://<head_node_server>/~<YOUR USERNAME>/amber_cluster_benchmark/index.html
+
+<br/>
+<strong> Step 5 (optional):  Get GPU results. </strong>
     
+    After building the cluster page and graph now it's time to run the gpu tests and have that image added to the index.html. 
     
+    % cd ~/amber_cluster_benchmark/
+    % ./gpu_tests.sh
+    
+    This will run the gpu tests. Make sure to edit the gpu_tests.sh script to suit your environment. 
+    
+<br/>
+<strong> Step 6 (optional):  compile the GPU results. </strong>
+ 
+    After all the jobs are run and off the queue you'll need to gather the results and create the GPU graph. 
   
+    % cd ~/amber_cluster_bechmark/results_gpu-Jan-06-2017-15:27    (note it'll have the date of when you ran these tests) 
+    
+    Before making the graph, edit the results file (results-gpu.csv) and change the hosts to reflect the short_hostname:#.
+    This is so the graph will look and fit better in the image. 
+    Change gpunode.domain.edu/1 to gpunode:1 to represent the second card on that host. 
+    
+    Now build the graph image by running: 
+    
+    % ./make_web.sh
+    
+    This will run the R script to generate the graph called make_graph.R. 
+    It'll also build the results in your public_html directory. 
+    
+    From the head node webserver access: 
+    
+    http://<head_node_server>/~<YOUR USERNAME>/amber_cluster_benchmark/index.html
+    
+    You should now see the GPU graph on the page in addition to the previous cluster test. 
+    
