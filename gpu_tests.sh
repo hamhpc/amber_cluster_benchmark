@@ -82,6 +82,7 @@ echo "NS_PER_DAY,GPU_HOST" > $RESULTS_FILE.csv
     echo -n " '{print"  >> gpu-$NPROC/job-$NPROC.run
     echo -n ' $3}' >> gpu-$NPROC/job-$NPROC.run
     echo "' > gpu-card-used" >> gpu-$NPROC/job-$NPROC.run
+    echo 'export CUDA_VISIBLE_DEVICES=`cat gpu-card-used | awk -F/ '{print $2}'`' >> gpu-$NPROC/job-$NPROC.run
     echo "/usr/bin/time $APPLICATION -O -i $AMBER_IN -o $AMBER_OUT -p $PRMTOP -c $RESTART_IN -r $RESTART_OUT -x $COORD" >> gpu-$NPROC/job-$NPROC.run
     echo "NS_PER_DAY=\`cat mdinfo | grep ns/day | tail -1 | awk '{print \$4}'\`" >> gpu-$NPROC/job-$NPROC.run
     echo 'NPROC=`cat gpu-card-used`' >> gpu-$NPROC/job-$NPROC.run
