@@ -33,7 +33,6 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
 <br/>
   <strong>Step 3:  run the tests.</strong>
   
-    % cd amber_cluster_benchmark
     % ./run_tests.sh                
   
      This will submit a bunch of jobs to the queue. It's a sequence of NPROC's from 2 up to the max. 
