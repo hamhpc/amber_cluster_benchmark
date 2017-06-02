@@ -24,7 +24,12 @@ The metrics are gathered to record the results in ns/day to see the scaling metr
 
     Edit the run_tests.sh script to make sure that it will operate in your environment. 
     % vi run_tests.sh
-    
+<br/>
+<strong> Step 2a:  add your input files. </strong>
+
+    You can add your input files into the etc directory of the amber_cluster_benchmark directory. 
+    Be sure to update the names of the files in the step 2 (above).
+        
 <br/>
   <strong>Step 3:  run the tests.</strong>
   
